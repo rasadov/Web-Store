@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ username }}
+{% endblock %}
+
+{% block content %}
+{% if owned_items == 0 %}
+<h1 style="margin: 30px 0 0 0; text-align: center;">User doesn't own any items</h1>
+{% else %}
+{% if current_user.is_authenticated and current_user.username == username %}
+<div style="text-align: center; width: 900px; margin: 0 auto 0 auto; text-align: center;">
+    <h2 style="margin-left: 0px;">Owned items</h2>
+    <!-- <p style="margin-left: 0px;">Click on sell item to put an item back</p> -->
+    <table class="table table-hover table-dark" style="width: 900px; margin-top: 40px;">
+      <thead>
+          <tr>
+              <!-- Your Columns HERE -->
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Price</th>
+              <th scope="col">Options</th>
+          </tr>
+      </thead>
+      <tbody>
+    {% for item in owned_items %} 
+            <tr>
+                {% include 'includes/profile_modal.html' %}
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.price }}$</td>
+        <td style="width: 300px;">
+          <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-MoreInfo-{{ item.id }}">More Info</button>
+          {% if item.forsale == 0 %}
+          <button class="btn btn-outline btn-danger" style="margin-left: 20px;" data-toggle="modal" data-target="#Modal-SellConfirm-{{ item.id }}">Sell this Item</button>
+          {% else %}
+          <button class="btn btn-outline btn-danger" style="margin-left: 20px;" data-toggle="modal" data-target="#Modal-StopConfirm-{{ item.id }}">Remove Offer</button>
+          {% endif %}
+        </td>
+      </tr> 
+        {% endfor %}
+      </tbody>
+    </table>
+    <br>
+</div>
+{% else %}
+<div style="text-align: center; margin: 0 0 0 0;">
+  <h2 style="margin: 20px 0 20px 0;">Owned items</h2>
+  <!-- <p style="margin-left: 0px;">Click on sell item to put an item back</p> -->
+  <table class="table table-hover table-dark" style="width: 900px; margin-top: 40px; margin: 0 auto 0 auto;">
+    <thead>
+        <tr>
+            <!-- Your Columns HERE -->
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Options</th>
+        </tr>
+    </thead>
+    <tbody>
+  {% for item in owned_items %} 
+          <tr>
+              {% include 'includes/profile_modal.html' %}
+              <td>{{ item.id }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.price }}$</td>
+      <td style="width: 300px;">
+        <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-MoreInfo-{{ item.id }}">More Info</button>
+        </td>
+    </tr> 
+      {% endfor %}
+    </tbody>
+  </table>
+  <br>
+</div>
+{% endif %}
+{% endif %}
+<div style="margin-left: auto; margin-right: auto; text-align: center;">
+  <a href="{{ url_for('create_item_page') }}" >
+    <button class="btn btn-outline btn-success" style="width: 200px; height: 50px;" data-toggle="modal" data-target="#Modal-Create">Create new Item</button>
+  </a>
+</div>
+
+{% endblock %}
+
+{% block css %} <style>
+    body {
+      background-color: #212121;
+      color: white
+    }
+  </style> {% endblock %}

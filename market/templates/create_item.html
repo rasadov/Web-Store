@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Create Item Page
+{% endblock %}
+
+{% block content %}
+<body style="text-align:center;">
+    <h1 style="margin-left: auto; margin-right: auto; text-align: center;">Create Item Form</h1>
+    <section style="margin-left: auto; margin-right: auto; border-radius: 20px; margin-top: 75px; 
+    background: linear-gradient(blue, rgb(104, 104, 249), cyan);
+        width: 500px; height: auto; text-align: center;">
+            <div class="container" style="width: 450px; text-align: center; margin-left: auto; margin-right: auto;">
+                <form method="POST" class="form-create" style="color: white;">
+                    {{ create_form.hidden_tag() }}
+                    <div style="height: 30px;"></div>
+                    <h1 class="h3 mb-3 font-weight-normal" style="text-align: center; font-size: 40px; ">
+                        <strong> Create Your Account</strong>
+                    </h1>
+                    <br>
+                {{ create_form.name(class="form-control", placeholder="Name of the Item") }}
+                <div style="height: 30px;"></div>
+                
+                {{ create_form.price(class="form-control", placeholder="Price") }}
+                <div style="height: 30px;"></div>
+                
+                <!-- {{ create_form.description(class="", placeholder="Description") }} -->
+                <textarea name="description" class="form-control" rows="5" placeholder="Description"></textarea>
+                <div style="height: 30px;"></div>
+                
+                <div style="height: 30px;"></div> 
+                {{ create_form.submit(class="btn btn-lg btn-block btn-primary" ) }}
+            </form>
+            </div>
+            <div style="height: 30px;"></div>
+    </section>
+</body>
+
+{% endblock %}
+
+{% block css %}
+   <style>
+      body {
+      background: #212121;
+
+      color: white
+    }
+    </style>
+{% endblock %}
